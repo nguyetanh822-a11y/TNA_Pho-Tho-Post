@@ -878,7 +878,7 @@ function goToStep(step) {
 //  BƯỚC QUAN TRỌNG: Dán URL Apps Script của bạn vào đây
 //  Xem hướng dẫn tại: Extensions > Apps Script > Deploy
 // =====================================================
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzBmxgsrupkqOPPM8VzLbZyuB_OZbyeILikpexy0Nh0r3OZ1QcoJmuaawBlb8rii8ru/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/library/d/1TE2ePBxOZ-B8VvZRiWizfmO6EZqdaa8Qf5NVIirsUEafAO6tt93lbjCG/3';
 // =====================================================
 
 function collectAllAnswers() {
@@ -921,7 +921,7 @@ async function submitForm() {
   const btn = document.querySelector('.btn-submit');
   const originalText = btn.innerHTML;
 
-  const urlConfigured = APPS_SCRIPT_URL && APPS_SCRIPT_URL !== 'https://script.google.com/macros/s/AKfycbzBmxgsrupkqOPPM8VzLbZyuB_OZbyeILikpexy0Nh0r3OZ1QcoJmuaawBlb8rii8ru/exec';
+  const urlConfigured = APPS_SCRIPT_URL && APPS_SCRIPT_URL !== 'https://script.google.com/macros/library/d/1TE2ePBxOZ-B8VvZRiWizfmO6EZqdaa8Qf5NVIirsUEafAO6tt93lbjCG/3';
 
   if (urlConfigured) {
     btn.innerHTML = '⏳ Đang gửi dữ liệu...';
