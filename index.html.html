@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khảo sát Nhu cầu Đào tạo – Bưu điện Phú Thọ</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #D0021B;
+    --red-dark: #A80016;
+    --red-light: #FFF0F2;
+    --gold: #F5A623;
+    --gold-light: #FFF8EC;
+    --dark: #1A1A2E;
+    --mid: #4A4A68;
+    --soft: #8B8BAF;
+    --bg: #F8F7FF;
+    --white: #FFFFFF;
+    --border: #E2E0F0;
+    --success: #22C55E;
+    --radius: 16px;
+    --shadow: 0 4px 24px rgba(26,26,46,0.10);
+    --shadow-hover: 0 8px 32px rgba(208,2,27,0.13);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    background: var(--bg);
+    color: var(--dark);
+    min-height: 100vh;
+    padding-bottom: 60px;
+  }
+
+  /* HEADER */
+  .hero {
+    background: linear-gradient(135deg, #D0021B 0%, #8B000F 60%, #1A1A2E 100%);
+    padding: 48px 24px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-inner { max-width: 720px; margin: 0 auto; position: relative; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+    color: #fff; font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-weight: 800; font-size: clamp(24px, 4vw, 36px);
+    color: #fff; line-height: 1.2; margin-bottom: 16px;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero p { color: rgba(255,255,255,0.80); font-size: 15px; line-height: 1.7; max-width: 540px; }
+  .hero-stats {
+    display: flex; gap: 24px; margin-top: 28px; flex-wrap: wrap;
+  }
+  .hero-stat {
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 12px; padding: 12px 20px; color: #fff;
+  }
+  .hero-stat strong { display: block; font-size: 20px; font-weight: 800; color: var(--gold); }
+  .hero-stat span { font-size: 12px; opacity: 0.75; }
+
+  /* PROGRESS */
+  .progress-wrap {
+    max-width: 720px; margin: -28px auto 0; padding: 0 16px;
+    position: relative; z-index: 10;
+  }
+  .progress-card {
+    background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow);
+    padding: 20px 28px;
+  }
+  .progress-steps { display: flex; align-items: center; gap: 0; }
+  .step-dot {
+    display: flex; flex-direction: column; align-items: center; flex: 1;
+    cursor: pointer;
+  }
+  .step-dot .dot {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; transition: all 0.3s;
+    border: 2px solid var(--border); background: var(--bg); color: var(--soft);
+  }
+  .step-dot.active .dot { background: var(--red); border-color: var(--red); color: #fff; }
+  .step-dot.done .dot { background: var(--success); border-color: var(--success); color: #fff; }
+  .step-dot .label { font-size: 11px; color: var(--soft); margin-top: 6px; text-align: center; font-weight: 500; }
+  .step-dot.active .label { color: var(--red); font-weight: 700; }
+  .step-line { flex: 1; height: 2px; background: var(--border); margin: 0 4px; margin-bottom: 20px; transition: background 0.3s; }
+  .step-line.done { background: var(--success); }
+  .progress-bar-wrap { margin-top: 16px; }
+  .progress-bar-track { height: 6px; background: var(--border); border-radius: 99px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--red), var(--gold)); border-radius: 99px; transition: width 0.5s ease; }
+  .progress-text { display: flex; justify-content: space-between; margin-top: 6px; font-size: 12px; color: var(--soft); }
+
+  /* MAIN */
+  .main { max-width: 720px; margin: 24px auto 0; padding: 0 16px; }
+
+  /* SECTION CARD */
+  .section-card {
+    background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow);
+    padding: 32px 36px; margin-bottom: 20px;
+    border-top: 4px solid var(--red);
+    display: none; animation: fadeIn 0.4s ease;
+  }
+  .section-card.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+  .section-header { margin-bottom: 28px; }
+  .section-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--red-light); color: var(--red);
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 4px 12px; border-radius: 100px; margin-bottom: 12px;
+  }
+  .section-tag .tag-icon { font-size: 13px; }
+  .section-title { font-size: 22px; font-weight: 800; color: var(--dark); margin-bottom: 8px; }
+  .section-desc { font-size: 14px; color: var(--mid); line-height: 1.65; }
+
+  /* QUESTION */
+  .question { margin-bottom: 28px; }
+  .q-label {
+    font-size: 15px; font-weight: 600; color: var(--dark);
+    margin-bottom: 4px; line-height: 1.5;
+  }
+  .q-label .required { color: var(--red); margin-left: 4px; }
+  .q-hint { font-size: 12px; color: var(--soft); margin-bottom: 12px; font-style: italic; }
+
+  /* RADIO / CHECKBOX */
+  .options-grid { display: flex; flex-direction: column; gap: 8px; }
+  .options-grid.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  @media (max-width: 560px) { .options-grid.grid-2 { grid-template-columns: 1fr; } }
+
+  .opt {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 12px 16px; border-radius: 12px;
+    border: 2px solid var(--border); background: var(--bg);
+    cursor: pointer; transition: all 0.2s; user-select: none;
+  }
+  .opt:hover { border-color: #D0021B88; background: var(--red-light); }
+  .opt input { display: none; }
+  .opt-check {
+    width: 20px; height: 20px; border-radius: 50%;
+    border: 2px solid var(--border); background: var(--white);
+    flex-shrink: 0; margin-top: 1px; transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .opt-check.square { border-radius: 6px; }
+  .opt.selected { border-color: var(--red); background: var(--red-light); }
+  .opt.selected .opt-check { background: var(--red); border-color: var(--red); }
+  .opt.selected .opt-check::after {
+    content: '✓'; color: white; font-size: 11px; font-weight: 700;
+  }
+  .opt-text { font-size: 14px; color: var(--dark); line-height: 1.5; }
+  .opt-sub { font-size: 12px; color: var(--soft); margin-top: 2px; }
+
+  /* SCALE */
+  .scale-wrap { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .scale-btn {
+    width: 44px; height: 44px; border-radius: 10px;
+    border: 2px solid var(--border); background: var(--bg);
+    font-size: 14px; font-weight: 700; color: var(--soft);
+    cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center;
+  }
+  .scale-btn:hover { border-color: var(--red); color: var(--red); }
+  .scale-btn.selected { background: var(--red); border-color: var(--red); color: #fff; }
+  .scale-labels { display: flex; justify-content: space-between; margin-top: 6px; font-size: 11px; color: var(--soft); }
+
+  /* TEXT INPUT */
+  .text-input {
+    width: 100%; padding: 12px 16px; border: 2px solid var(--border);
+    border-radius: 12px; font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 14px; color: var(--dark); background: var(--bg);
+    transition: border-color 0.2s; resize: vertical; min-height: 60px;
+    outline: none;
+  }
+  .text-input:focus { border-color: var(--red); background: var(--white); }
+
+  /* SELECT */
+  .select-input {
+    width: 100%; padding: 12px 16px; border: 2px solid var(--border);
+    border-radius: 12px; font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 14px; color: var(--dark); background: var(--bg);
+    appearance: none; cursor: pointer; outline: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%238B8BAF' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 16px center;
+    padding-right: 40px;
+  }
+  .select-input:focus { border-color: var(--red); }
+
+  /* DIVIDER */
+  .q-divider { border: none; border-top: 1px dashed var(--border); margin: 24px 0; }
+
+  /* NOTE BOX */
+  .note-box {
+    background: var(--gold-light); border: 1px solid #F5A62366;
+    border-left: 4px solid var(--gold); border-radius: 12px;
+    padding: 14px 18px; margin-bottom: 24px; font-size: 13px;
+    color: #7A5000; line-height: 1.6;
+  }
+  .note-box strong { color: #5A3800; }
+
+  /* NAV BUTTONS */
+  .nav-buttons { display: flex; justify-content: space-between; align-items: center; margin-top: 32px; gap: 12px; }
+  .btn {
+    padding: 14px 32px; border-radius: 12px; font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.2s;
+    border: none; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-back { background: var(--bg); color: var(--mid); border: 2px solid var(--border); }
+  .btn-back:hover { border-color: var(--mid); color: var(--dark); }
+  .btn-next { background: var(--red); color: #fff; }
+  .btn-next:hover { background: var(--red-dark); transform: translateY(-1px); box-shadow: var(--shadow-hover); }
+  .btn-submit { background: linear-gradient(135deg, var(--red), #FF4D4D); color: #fff; }
+  .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(208,2,27,0.35); }
+
+  /* SUCCESS */
+  .success-screen {
+    display: none; text-align: center; padding: 60px 24px;
+  }
+  .success-screen.show { display: block; animation: fadeIn 0.5s; }
+  .success-icon {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: linear-gradient(135deg, #22C55E, #16A34A);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px; margin: 0 auto 24px;
+    box-shadow: 0 8px 24px rgba(34,197,94,0.3);
+  }
+  .success-screen h2 { font-size: 28px; font-weight: 800; color: var(--dark); margin-bottom: 12px; }
+  .success-screen p { color: var(--mid); font-size: 15px; line-height: 1.7; }
+
+  /* SECTION INDICATOR */
+  .section-nav-info { font-size: 13px; color: var(--soft); font-weight: 500; }
+
+  /* Conditional visibility */
+  .conditional { display: none; }
+  .conditional.show { display: block; }
+
+  @media (max-width: 560px) {
+    .section-card { padding: 24px 20px; }
+    .progress-card { padding: 16px 20px; }
+    .hero { padding: 36px 20px 70px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">🔴 Bưu điện Trung tâm Phú Thọ</div>
+    <h1>Khảo sát <span>Nhu cầu Đào tạo</span><br>Kỹ năng Bán hàng Chủ động</h1>
+    <p>Khảo sát này giúp chúng tôi hiểu đúng thực trạng và thiết kế chương trình đào tạo phù hợp nhất với bạn. Không có câu trả lời đúng hay sai — hãy chọn điều phản ánh đúng nhất thực tế của bạn.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><strong>~10 phút</strong><span>Thời gian hoàn thành</span></div>
+      <div class="hero-stat"><strong>5 phần</strong><span>Nội dung khảo sát</span></div>
+      <div class="hero-stat"><strong>Bảo mật</strong><span>Dữ liệu ẩn danh</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-wrap">
+  <div class="progress-card">
+    <div class="progress-steps">
+      <div class="step-dot active" id="step-1" onclick="goToStep(1)">
+        <div class="dot">A</div>
+        <div class="label">Chân dung</div>
+      </div>
+      <div class="step-line" id="line-1"></div>
+      <div class="step-dot" id="step-2" onclick="goToStep(2)">
+        <div class="dot">B</div>
+        <div class="label">Công việc</div>
+      </div>
+      <div class="step-line" id="line-2"></div>
+      <div class="step-dot" id="step-3" onclick="goToStep(3)">
+        <div class="dot">C</div>
+        <div class="label">Tư duy</div>
+      </div>
+      <div class="step-line" id="line-3"></div>
+      <div class="step-dot" id="step-4" onclick="goToStep(4)">
+        <div class="dot">D</div>
+        <div class="label">Kỹ năng</div>
+      </div>
+      <div class="step-line" id="line-4"></div>
+      <div class="step-dot" id="step-5" onclick="goToStep(5)">
+        <div class="dot">E</div>
+        <div class="label">Kỳ vọng</div>
+      </div>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="prog-bar" style="width:20%"></div>
+      </div>
+      <div class="progress-text">
+        <span id="prog-label">Phần A / 5 — Chân dung học viên</span>
+        <span id="prog-pct">20%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN FORM -->
+<div class="main">
+
+  <!-- === PHẦN A: CHÂN DUNG === -->
+  <div class="section-card active" id="section-1">
+    <div class="section-header">
+      <div class="section-tag"><span class="tag-icon">👤</span> Phần A</div>
+      <div class="section-title">Chân dung học viên</div>
+      <div class="section-desc">Giúp chúng tôi hiểu bạn là ai để thiết kế nội dung phù hợp với nhóm của bạn.</div>
+    </div>
+
+    <div class="question">
+      <div class="q-label">A1. Giới tính của bạn? <span class="required">*</span></div>
+      <div class="options-grid grid-2">
+        <label class="opt" onclick="selectOpt(this,'radio','a1')">
+          <input type="radio" name="a1" value="Nam">
+          <div class="opt-check"></div>
+          <div class="opt-text">Nam</div>
+        </label>
+        <label class="opt" onclick="selectOpt(this,'radio','a1')">
+          <input type="radio" name="a1" value="Nữ">
+          <div class="opt-check"></div>
+          <div class="opt-text">Nữ</div>
+        </label>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="q-label">A2. Độ tuổi của bạn? <span class="required">*</span></div>
+      <div class="options-grid grid-2">
+        <label class="opt" onclick="selectOpt(this,'radio','a2')"><input type="radio" name="a2" value="<25"><div class="opt-check"></div><div class="opt-text">Dưới 25 tuổi</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','a2')"><input type="radio" name="a2" value="25-35"><div class="opt-check"></div><div class="opt-text">25 – 35 tuổi</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','a2')"><input type="radio" name="a2" value="36-45"><div class="opt-check"></div><div class="opt-text">36 – 45 tuổi</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','a2')"><input type="radio" name="a2" value=">45"><div class="opt-check"></div><div class="opt-text">Trên 45 tuổi</div></label>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="q-label">A3. Vị trí / chức danh hiện tại của bạn? <span class="required">*</span></div>
+      <div class="options-grid">
+        <label class="opt" onclick="selectOpt(this,'radio','a3')"><input type="radio" name="a3" value="NVKD"><div class="opt-check"></div><div class="opt-text">Nhân viên kinh doanh (chuyên trách bán hàng)<div class="opt-sub">Có chỉ tiêu doanh số cụ thể, đi tìm kiếm khách hàng</div></div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','a3')"><input type="radio" name="a3" value="GDV"><div class="opt-check"></div><div class="opt-text">Giao dịch viên tại bưu cục<div class="opt-sub">Chủ yếu tiếp nhận giao dịch, có bán thêm khi khách đến</div></div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','a3')"><input type="radio" name="a3" value="TBC"><div class="opt-check"></div><div class="opt-text">Trưởng bưu cục<div class="opt-sub">Quản lý bưu cục, vừa điều hành vừa có chỉ tiêu bán hàng</div></div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','a3')"><input type="radio" name="a3" value="Khac"><div class="opt-check"></div><div class="opt-text">Vị trí khác</div></label>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="q-label">A4. Bạn chủ yếu phụ trách mảng sản phẩm / dịch vụ nào? <span class="required">*</span></div>
+      <div class="q-hint">Có thể chọn nhiều hơn 1 nếu bạn phụ trách đa mảng</div>
+      <div class="options-grid">
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','a4')"><input type="checkbox" name="a4" value="CPN"><div class="opt-check square"></div><div class="opt-text">📦 Dịch vụ chuyển phát (EMS, chuyển phát nhanh, tiêu chuẩn)<div class="opt-sub">Gửi hàng, bưu kiện trong nước & quốc tế</div></div></label>
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','a4')"><input type="checkbox" name="a4" value="BH"><div class="opt-check square"></div><div class="opt-text">🛡️ Bảo hiểm<div class="opt-sub">Bảo hiểm xe máy, ô tô, nhân thọ và các sản phẩm bảo hiểm khác</div></div></label>
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','a4')"><input type="checkbox" name="a4" value="TC"><div class="opt-check square"></div><div class="opt-text">💳 Dịch vụ tài chính & thanh toán<div class="opt-sub">Chuyển tiền, thu hộ - chi hộ, thanh toán hóa đơn, cho vay</div></div></label>
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','a4')"><input type="checkbox" name="a4" value="BL"><div class="opt-check square"></div><div class="opt-text">🏪 Thương mại bán lẻ<div class="opt-sub">FMCG (hàng tiêu dùng nhanh), bách hóa, cửa hàng tiện lợi, Postmart</div></div></label>
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','a4')"><input type="checkbox" name="a4" value="VT"><div class="opt-check square"></div><div class="opt-text">📱 Dịch vụ viễn thông & công nghệ<div class="opt-sub">Thẻ viễn thông, phát triển thuê bao, sản phẩm VNPT, thiết bị đầu cuối</div></div></label>
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','a4')"><input type="checkbox" name="a4" value="DV"><div class="opt-check square"></div><div class="opt-text">✈️ Đại lý dịch vụ khác<div class="opt-sub">Bán vé máy bay, thu cước, dịch vụ hành chính công</div></div></label>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="q-label">A5. Bạn đã làm việc tại Bưu điện được bao lâu? <span class="required">*</span></div>
+      <div class="options-grid grid-2">
+        <label class="opt" onclick="selectOpt(this,'radio','a5')"><input type="radio" name="a5" value="<1"><div class="opt-check"></div><div class="opt-text">Dưới 1 năm</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','a5')"><input type="radio" name="a5" value="1-3"><div class="opt-check"></div><div class="opt-text">1 – 3 năm</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','a5')"><input type="radio" name="a5" value="3-7"><div class="opt-check"></div><div class="opt-text">3 – 7 năm</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','a5')"><input type="radio" name="a5" value=">7"><div class="opt-check"></div><div class="opt-text">Trên 7 năm</div></label>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="q-label">A6. Trước khi làm ở Bưu điện, bạn đã có kinh nghiệm bán hàng chưa? <span class="required">*</span></div>
+      <div class="options-grid">
+        <label class="opt" onclick="selectOpt(this,'radio','a6')"><input type="radio" name="a6" value="Chưa"><div class="opt-check"></div><div class="opt-text">Chưa từng bán hàng, đây là lần đầu</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','a6')"><input type="radio" name="a6" value="Ít"><div class="opt-check"></div><div class="opt-text">Đã từng bán hàng nhưng ít, không chuyên</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','a6')"><input type="radio" name="a6" value="Có"><div class="opt-check"></div><div class="opt-text">Có kinh nghiệm bán hàng trước đây (ngành khác)</div></label>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <div class="section-nav-info">Phần 1 / 5</div>
+      <button class="btn btn-next" onclick="nextStep(1)">Tiếp theo →</button>
+    </div>
+  </div>
+
+  <!-- === PHẦN B: THỰC TRẠNG CÔNG VIỆC === -->
+  <div class="section-card" id="section-2">
+    <div class="section-header">
+      <div class="section-tag"><span class="tag-icon">💼</span> Phần B</div>
+      <div class="section-title">Thực trạng công việc bán hàng</div>
+      <div class="section-desc">Giúp chúng tôi hiểu bạn đang làm gì, dành bao nhiêu thời gian cho bán hàng, và đang gặp tình huống nào trong thực tế.</div>
+    </div>
+
+    <div class="note-box">
+      💡 <strong>Lưu ý:</strong> Không có câu trả lời đúng hay sai. Hãy chọn điều phản ánh đúng nhất thực tế hiện tại của bạn — thành thật sẽ giúp chương trình đào tạo hữu ích hơn.
+    </div>
+
+    <div class="question">
+      <div class="q-label">B1. Trong một ngày làm việc, bạn dành bao nhiêu thời gian cho hoạt động BÁN HÀNG (tiếp cận, tư vấn, thuyết phục khách hàng)? <span class="required">*</span></div>
+      <div class="options-grid">
+        <label class="opt" onclick="selectOpt(this,'radio','b1')"><input type="radio" name="b1" value="<1h"><div class="opt-check"></div><div class="opt-text">Dưới 1 giờ / ngày<div class="opt-sub">Hầu hết thời gian dành cho xử lý nghiệp vụ, giao dịch thông thường</div></div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','b1')"><input type="radio" name="b1" value="1-2h"><div class="opt-check"></div><div class="opt-text">1 – 2 giờ / ngày<div class="opt-sub">Có bán hàng nhưng chủ yếu khi khách đến hỏi hoặc có thời gian rảnh</div></div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','b1')"><input type="radio" name="b1" value="2-4h"><div class="opt-check"></div><div class="opt-text">2 – 4 giờ / ngày<div class="opt-sub">Bán hàng là phần quan trọng trong ngày làm việc</div></div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','b1')"><input type="radio" name="b1" value=">4h"><div class="opt-check"></div><div class="opt-text">Trên 4 giờ / ngày<div class="opt-sub">Bán hàng là công việc chính, dành phần lớn thời gian</div></div></label>
+      </div>
+    </div>
+
+    <hr class="q-divider">
+
+    <div class="question">
+      <div class="q-label">B2. Khách hàng bạn đang tiếp cận / bán cho là ai? <span class="required">*</span></div>
+      <div class="q-hint">Có thể chọn nhiều đáp án</div>
+      <div class="options-grid">
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','b2')"><input type="checkbox" name="b2" value="KH_den"><div class="opt-check square"></div><div class="opt-text">Khách hàng đến giao dịch tại bưu cục (khách vãng lai)</div></label>
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','b2')"><input type="checkbox" name="b2" value="KH_cu"><div class="opt-check square"></div><div class="opt-text">Khách hàng cũ đã từng sử dụng dịch vụ</div></label>
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','b2')"><input type="checkbox" name="b2" value="KH_moi"><div class="opt-check square"></div><div class="opt-text">Khách hàng mới — chủ động tìm kiếm, tiếp cận ngoài bưu cục</div></label>
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','b2')"><input type="checkbox" name="b2" value="DN"><div class="opt-check square"></div><div class="opt-text">Doanh nghiệp / tổ chức (B2B)</div></label>
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','b2')"><input type="checkbox" name="b2" value="Khong_ro"><div class="opt-check square"></div><div class="opt-text">Chưa xác định rõ, chưa có định hướng tìm kiếm khách hàng</div></label>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="q-label">B3. Hiện tại bạn có được giao CHỈ TIÊU bán hàng cụ thể không? <span class="required">*</span></div>
+      <div class="options-grid">
+        <label class="opt" onclick="selectOpt(this,'radio','b3')"><input type="radio" name="b3" value="Co_ro"><div class="opt-check"></div><div class="opt-text">Có, chỉ tiêu rõ ràng và được theo dõi định kỳ</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','b3')"><input type="radio" name="b3" value="Co_chung"><div class="opt-check"></div><div class="opt-text">Có nhưng chỉ tiêu chung cho cả bưu cục, không phân rõ cá nhân</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','b3')"><input type="radio" name="b3" value="Khong_chinh_thuc"><div class="opt-check"></div><div class="opt-text">Không có chỉ tiêu chính thức, bán được thì tốt</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','b3')"><input type="radio" name="b3" value="Khong_biet"><div class="opt-check"></div><div class="opt-text">Không rõ / không biết mình có chỉ tiêu hay không</div></label>
+      </div>
+    </div>
+
+    <hr class="q-divider">
+
+    <div class="question">
+      <div class="q-label">B4. Trong tháng gần nhất, bạn đã chủ động tiếp cận khách hàng MỚI bao nhiêu lần? <span class="required">*</span></div>
+      <div class="options-grid grid-2">
+        <label class="opt" onclick="selectOpt(this,'radio','b4')"><input type="radio" name="b4" value="0"><div class="opt-check"></div><div class="opt-text">Chưa lần nào</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','b4')"><input type="radio" name="b4" value="1-5"><div class="opt-check"></div><div class="opt-text">1 – 5 lần</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','b4')"><input type="radio" name="b4" value="6-15"><div class="opt-check"></div><div class="opt-text">6 – 15 lần</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','b4')"><input type="radio" name="b4" value=">15"><div class="opt-check"></div><div class="opt-text">Hơn 15 lần</div></label>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="q-label">B5. Khi gặp khách hàng, bạn thường mở đầu câu chuyện bán hàng bằng cách nào? <span class="required">*</span></div>
+      <div class="options-grid">
+        <label class="opt" onclick="selectOpt(this,'radio','b5')"><input type="radio" name="b5" value="Cho_hoi"><div class="opt-check"></div><div class="opt-text">Chờ khách hỏi, không chủ động giới thiệu trước</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','b5')"><input type="radio" name="b5" value="Gioi_thieu"><div class="opt-check"></div><div class="opt-text">Chủ động giới thiệu dịch vụ sau khi xử lý xong giao dịch chính</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','b5')"><input type="radio" name="b5" value="Hoi_truoc"><div class="opt-check"></div><div class="opt-text">Hỏi thăm nhu cầu của khách trước rồi mới giới thiệu phù hợp</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','b5')"><input type="radio" name="b5" value="Chua_biet"><div class="opt-check"></div><div class="opt-text">Chưa biết cách bắt đầu, thường cảm thấy lúng túng</div></label>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="q-label">B6. Tháng vừa rồi, kết quả bán hàng của bạn so với chỉ tiêu được giao là? <span class="required">*</span></div>
+      <div class="options-grid">
+        <label class="opt" onclick="selectOpt(this,'radio','b6')"><input type="radio" name="b6" value="Vuot"><div class="opt-check"></div><div class="opt-text">Vượt chỉ tiêu (trên 100%)</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','b6')"><input type="radio" name="b6" value="Dat"><div class="opt-check"></div><div class="opt-text">Đạt chỉ tiêu (80–100%)</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','b6')"><input type="radio" name="b6" value="Chua_dat"><div class="opt-check"></div><div class="opt-text">Chưa đạt chỉ tiêu (dưới 80%)</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','b6')"><input type="radio" name="b6" value="KCT"><div class="opt-check"></div><div class="opt-text">Không có chỉ tiêu cụ thể nên không đánh giá được</div></label>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-back" onclick="prevStep(2)">← Quay lại</button>
+      <button class="btn btn-next" onclick="nextStep(2)">Tiếp theo →</button>
+    </div>
+  </div>
+
+  <!-- === PHẦN C: TƯ DUY & THÁI ĐỘ === -->
+  <div class="section-card" id="section-3">
+    <div class="section-header">
+      <div class="section-tag"><span class="tag-icon">🧠</span> Phần C</div>
+      <div class="section-title">Tư duy & Thái độ bán hàng</div>
+      <div class="section-desc">Phần này giúp chúng tôi hiểu cách bạn đang suy nghĩ về việc bán hàng — đây là nền tảng quan trọng nhất để thay đổi.</div>
+    </div>
+
+    <div class="question">
+      <div class="q-label">C1. Khi nghe đến từ "BÁN HÀNG", cảm xúc đầu tiên xuất hiện trong bạn là gì? <span class="required">*</span></div>
+      <div class="options-grid">
+        <label class="opt" onclick="selectOpt(this,'radio','c1')"><input type="radio" name="c1" value="Thich"><div class="opt-check"></div><div class="opt-text">😊 Thích, tôi cảm thấy tự tin và hào hứng</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','c1')"><input type="radio" name="c1" value="Trung_tinh"><div class="opt-check"></div><div class="opt-text">😐 Bình thường, đó là công việc phải làm</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','c1')"><input type="radio" name="c1" value="Ngai"><div class="opt-check"></div><div class="opt-text">😬 Ngại ngùng, không thoải mái khi phải mời chào khách</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','c1')"><input type="radio" name="c1" value="Lo_so"><div class="opt-check"></div><div class="opt-text">😰 Lo sợ bị từ chối hoặc khách khó chịu với mình</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','c1')"><input type="radio" name="c1" value="Khong_phai"><div class="opt-check"></div><div class="opt-text">🤔 Bán hàng không phải việc của tôi, tôi chỉ làm nghiệp vụ</div></label>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="q-label">C2. Bạn đồng ý với quan điểm nào nhất khi nói về bán hàng tại Bưu điện? <span class="required">*</span></div>
+      <div class="options-grid">
+        <label class="opt" onclick="selectOpt(this,'radio','c2')"><input type="radio" name="c2" value="GiupKH"><div class="opt-check"></div><div class="opt-text">"Bán hàng là đang giúp khách hàng tìm được dịch vụ phù hợp với nhu cầu của họ"</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','c2')"><input type="radio" name="c2" value="ChiTieu"><div class="opt-check"></div><div class="opt-text">"Bán hàng là phải hoàn thành chỉ tiêu, không liên quan đến nhu cầu khách hàng"</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','c2')"><input type="radio" name="c2" value="EpBuoc"><div class="opt-check"></div><div class="opt-text">"Chào mời khách hàng là đang làm phiền họ, tôi không muốn làm vậy"</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','c2')"><input type="radio" name="c2" value="KhongBiet"><div class="opt-check"></div><div class="opt-text">"Tôi chưa rõ bán hàng đúng nghĩa là như thế nào"</div></label>
+      </div>
+    </div>
+
+    <hr class="q-divider">
+
+    <div class="question">
+      <div class="q-label">C3. Mức độ tự tin của bạn khi giới thiệu sản phẩm/dịch vụ với khách hàng? <span class="required">*</span></div>
+      <div class="q-hint">1 = Rất không tự tin &nbsp;|&nbsp; 10 = Rất tự tin, hoàn toàn thoải mái</div>
+      <div class="scale-wrap" id="scale-c3"></div>
+      <div class="scale-labels"><span>😰 Rất không tự tin</span><span>😎 Rất tự tin</span></div>
+    </div>
+
+    <div class="question">
+      <div class="q-label">C4. Khi khách hàng từ chối mua, bạn thường làm gì? <span class="required">*</span></div>
+      <div class="options-grid">
+        <label class="opt" onclick="selectOpt(this,'radio','c4')"><input type="radio" name="c4" value="Dung"><div class="opt-check"></div><div class="opt-text">Dừng lại ngay, không nói thêm vì sợ làm khách khó chịu</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','c4')"><input type="radio" name="c4" value="Giai_thich"><div class="opt-check"></div><div class="opt-text">Cố gắng giải thích thêm về tính năng/lợi ích sản phẩm</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','c4')"><input type="radio" name="c4" value="Hoi_ly_do"><div class="opt-check"></div><div class="opt-text">Hỏi khách lý do từ chối để hiểu và xử lý đúng</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','c4')"><input type="radio" name="c4" value="Khong_biet"><div class="opt-check"></div><div class="opt-text">Không biết làm gì tiếp theo trong tình huống này</div></label>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="q-label">C5. Lý do nào khiến bạn ngại chủ động tiếp cận / mời chào khách hàng? <span class="required">*</span></div>
+      <div class="q-hint">Có thể chọn nhiều đáp án</div>
+      <div class="options-grid">
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','c5')"><input type="checkbox" name="c5" value="So_bi_choi"><div class="opt-check square"></div><div class="opt-text">Sợ bị khách từ chối thẳng, cảm thấy mất mặt</div></label>
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','c5')"><input type="checkbox" name="c5" value="Lam_phien"><div class="opt-check square"></div><div class="opt-text">Cảm thấy mình đang làm phiền khách hàng</div></label>
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','c5')"><input type="checkbox" name="c5" value="Khong_biet_noi"><div class="opt-check square"></div><div class="opt-text">Không biết phải nói gì, nói như thế nào</div></label>
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','c5')"><input type="checkbox" name="c5" value="Khong_hieu_SP"><div class="opt-check square"></div><div class="opt-text">Chưa nắm vững sản phẩm nên không tự tin giới thiệu</div></label>
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','c5')"><input type="checkbox" name="c5" value="Khong_dong_luc"><div class="opt-check square"></div><div class="opt-text">Thu nhập/lương thưởng từ bán hàng chưa đủ động lực</div></label>
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','c5')"><input type="checkbox" name="c5" value="Bui_viec"><div class="opt-check square"></div><div class="opt-text">Quá bận với công việc nghiệp vụ hành chính, không có thời gian</div></label>
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','c5')"><input type="checkbox" name="c5" value="Khong_ngai"><div class="opt-check square"></div><div class="opt-text">Tôi không ngại, tôi bán hàng khá tốt rồi</div></label>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="q-label">C6. Bạn nghĩ nguyên nhân chính nào khiến bản thân chưa bán được nhiều hàng? <span class="required">*</span></div>
+      <div class="options-grid">
+        <label class="opt" onclick="selectOpt(this,'radio','c6')"><input type="radio" name="c6" value="Thieu_ky_nang"><div class="opt-check"></div><div class="opt-text">Thiếu kỹ năng — không biết cách tư vấn, thuyết phục</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','c6')"><input type="radio" name="c6" value="Thieu_tu_tin"><div class="opt-check"></div><div class="opt-text">Thiếu tự tin — ngại giao tiếp, sợ bị từ chối</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','c6')"><input type="radio" name="c6" value="San_pham_kho"><div class="opt-check"></div><div class="opt-text">Sản phẩm / giá khó cạnh tranh, khó bán</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','c6')"><input type="radio" name="c6" value="Khong_co_co_hoi"><div class="opt-check"></div><div class="opt-text">Không có cơ hội / ít khách hàng tiềm năng tại địa bàn</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','c6')"><input type="radio" name="c6" value="Toi_ban_tot"><div class="opt-check"></div><div class="opt-text">Tôi đang bán tốt, không có vấn đề gì lớn</div></label>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-back" onclick="prevStep(3)">← Quay lại</button>
+      <button class="btn btn-next" onclick="nextStep(3)">Tiếp theo →</button>
+    </div>
+  </div>
+
+  <!-- === PHẦN D: KỸ NĂNG === -->
+  <div class="section-card" id="section-4">
+    <div class="section-header">
+      <div class="section-tag"><span class="tag-icon">🎯</span> Phần D</div>
+      <div class="section-title">Kỹ năng & Kiến thức thực tế</div>
+      <div class="section-desc">Đánh giá mức độ thành thạo hiện tại của bạn trong từng kỹ năng bán hàng cụ thể.</div>
+    </div>
+
+    <div class="question">
+      <div class="q-label">D1. Bạn tự đánh giá mức độ nắm vững sản phẩm / dịch vụ mình đang bán ở mức nào? <span class="required">*</span></div>
+      <div class="options-grid">
+        <label class="opt" onclick="selectOpt(this,'radio','d1')"><input type="radio" name="d1" value="Kem"><div class="opt-check"></div><div class="opt-text">Còn yếu — chỉ biết tên sản phẩm, chưa hiểu rõ lợi ích và cách dùng</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','d1')"><input type="radio" name="d1" value="Trung_binh"><div class="opt-check"></div><div class="opt-text">Trung bình — hiểu cơ bản, nhưng không đủ để trả lời câu hỏi khó của khách</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','d1')"><input type="radio" name="d1" value="Kha"><div class="opt-check"></div><div class="opt-text">Khá — hiểu rõ và có thể giới thiệu được</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','d1')"><input type="radio" name="d1" value="Tot"><div class="opt-check"></div><div class="opt-text">Tốt — hiểu sâu, tự tin giải đáp mọi thắc mắc của khách</div></label>
+      </div>
+    </div>
+
+    <hr class="q-divider">
+
+    <div class="question">
+      <div class="q-label">D2. Tự đánh giá từng kỹ năng bán hàng của bạn <span class="required">*</span></div>
+      <div class="q-hint">1 = Rất yếu, chưa làm được &nbsp;|&nbsp; 5 = Rất tốt, làm được một cách tự nhiên</div>
+
+      <div style="overflow-x:auto;">
+        <table style="width:100%; border-collapse:separate; border-spacing:0 8px; font-size:14px;">
+          <thead>
+            <tr style="text-align:center; color: var(--soft); font-size:12px;">
+              <th style="text-align:left; padding: 8px 0; width:45%">Kỹ năng</th>
+              <th style="width:11%">1<br>Rất yếu</th>
+              <th style="width:11%">2</th>
+              <th style="width:11%">3</th>
+              <th style="width:11%">4</th>
+              <th style="width:11%">5<br>Rất tốt</th>
+            </tr>
+          </thead>
+          <tbody id="skills-table">
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <hr class="q-divider">
+
+    <div class="question">
+      <div class="q-label">D3. Bạn đã từng xử lý thành công một tình huống khách hàng phản đối / từ chối chưa? <span class="required">*</span></div>
+      <div class="options-grid">
+        <label class="opt" onclick="selectOpt(this,'radio','d3')"><input type="radio" name="d3" value="Nhieu"><div class="opt-check"></div><div class="opt-text">Đã làm nhiều lần, tôi xử lý được tốt</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','d3')"><input type="radio" name="d3" value="Vai_lan"><div class="opt-check"></div><div class="opt-text">Đã làm vài lần nhưng không chắc mình làm đúng không</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','d3')"><input type="radio" name="d3" value="Chua"><div class="opt-check"></div><div class="opt-text">Chưa từng xử lý được, thường bỏ cuộc khi khách từ chối</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','d3')"><input type="radio" name="d3" value="Khong_nho"><div class="opt-check"></div><div class="opt-text">Không nhớ rõ</div></label>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="q-label">D4. Loại phản đối nào từ khách hàng bạn thấy KHÓ XỬ LÝ NHẤT? <span class="required">*</span></div>
+      <div class="q-hint">Chọn tối đa 2 loại phản đối</div>
+      <div class="options-grid">
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','d4')"><input type="checkbox" name="d4" value="Mac"><div class="opt-check square"></div><div class="opt-text">"Giá đắt quá / bên khác rẻ hơn"</div></label>
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','d4')"><input type="checkbox" name="d4" value="Nghi"><div class="opt-check square"></div><div class="opt-text">"Để tôi suy nghĩ thêm / hỏi lại đã"</div></label>
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','d4')"><input type="checkbox" name="d4" value="Dung_roi"><div class="opt-check square"></div><div class="opt-text">"Tôi đang dùng dịch vụ của bên khác rồi, quen rồi"</div></label>
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','d4')"><input type="checkbox" name="d4" value="Khong_can"><div class="opt-check square"></div><div class="opt-text">"Tôi không cần / không có nhu cầu"</div></label>
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','d4')"><input type="checkbox" name="d4" value="Khong_tin"><div class="opt-check square"></div><div class="opt-text">"Tôi không tin sản phẩm của Bưu điện bằng bên kia"</div></label>
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','d4')"><input type="checkbox" name="d4" value="Biet_roi"><div class="opt-check square"></div><div class="opt-text">"Tôi biết rồi, thôi khỏi giới thiệu nữa"</div></label>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="q-label">D5. Bạn đã được tham gia đào tạo kỹ năng bán hàng chưa? <span class="required">*</span></div>
+      <div class="options-grid">
+        <label class="opt" onclick="selectOpt(this,'radio','d5')"><input type="radio" name="d5" value="Chua"><div class="opt-check"></div><div class="opt-text">Chưa bao giờ</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','d5')"><input type="radio" name="d5" value="1_2_lan"><div class="opt-check"></div><div class="opt-text">Đã học 1–2 lần nhưng khá lâu rồi và không nhớ nhiều</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','d5')"><input type="radio" name="d5" value="Co_nhieu"><div class="opt-check"></div><div class="opt-text">Có học nhiều lần, nhưng chưa áp dụng được vào thực tế</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','d5')"><input type="radio" name="d5" value="Tu_hoc"><div class="opt-check"></div><div class="opt-text">Chủ yếu tự học, tự rút kinh nghiệm khi làm việc</div></label>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-back" onclick="prevStep(4)">← Quay lại</button>
+      <button class="btn btn-next" onclick="nextStep(4)">Tiếp theo →</button>
+    </div>
+  </div>
+
+  <!-- === PHẦN E: KỲ VỌNG & NHU CẦU ĐÀO TẠO === -->
+  <div class="section-card" id="section-5">
+    <div class="section-header">
+      <div class="section-tag"><span class="tag-icon">🚀</span> Phần E</div>
+      <div class="section-title">Kỳ vọng & Nhu cầu đào tạo</div>
+      <div class="section-desc">Hãy cho chúng tôi biết bạn muốn đạt được điều gì sau khóa học — điều này quyết định chất lượng chương trình.</div>
+    </div>
+
+    <div class="question">
+      <div class="q-label">E1. Nếu chỉ chọn 1 kỹ năng quan trọng nhất cần học, bạn chọn gì? <span class="required">*</span></div>
+      <div class="options-grid">
+        <label class="opt" onclick="selectOpt(this,'radio','e1')"><input type="radio" name="e1" value="Tiep_can"><div class="opt-check"></div><div class="opt-text">🔍 Cách tìm kiếm và tiếp cận khách hàng mới</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','e1')"><input type="radio" name="e1" value="Mo_dau"><div class="opt-check"></div><div class="opt-text">💬 Cách mở đầu cuộc trò chuyện bán hàng tự nhiên, không gượng gạo</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','e1')"><input type="radio" name="e1" value="Tuvan"><div class="opt-check"></div><div class="opt-text">🎯 Kỹ năng đặt câu hỏi & tư vấn đúng nhu cầu khách</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','e1')"><input type="radio" name="e1" value="Phan_doi"><div class="opt-check"></div><div class="opt-text">🛡️ Xử lý phản đối và vượt qua lời từ chối của khách hàng</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','e1')"><input type="radio" name="e1" value="Chot"><div class="opt-check"></div><div class="opt-text">✅ Chốt đơn hàng — đưa khách đến quyết định mua</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','e1')"><input type="radio" name="e1" value="Tu_duy"><div class="opt-check"></div><div class="opt-text">💡 Thay đổi tư duy — xây dựng sự tự tin và chủ động bán hàng</div></label>
+      </div>
+    </div>
+
+    <hr class="q-divider">
+
+    <div class="question">
+      <div class="q-label">E2. Những nội dung nào bạn MUỐN ĐƯỢC HỌC nhất trong chương trình này? <span class="required">*</span></div>
+      <div class="q-hint">Chọn tối đa 3 nội dung quan trọng nhất với bạn</div>
+      <div class="options-grid">
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','e2')"><input type="checkbox" name="e2" value="Tu_duy"><div class="opt-check square"></div><div class="opt-text">🧠 Thay đổi tư duy: "tôi là người giúp đỡ khách hàng, không phải người ép bán"</div></label>
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','e2')"><input type="checkbox" name="e2" value="Lap_ke_hoach"><div class="opt-check square"></div><div class="opt-text">📋 Lập kế hoạch tìm kiếm khách hàng có hệ thống</div></label>
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','e2')"><input type="checkbox" name="e2" value="Giao_tiep"><div class="opt-check square"></div><div class="opt-text">🗣️ Kỹ thuật giao tiếp, tạo ấn tượng đầu tiên tốt với khách</div></label>
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','e2')"><input type="checkbox" name="e2" value="Khai_pha"><div class="opt-check square"></div><div class="opt-text">❓ Đặt câu hỏi khéo để khám phá nhu cầu ẩn của khách</div></label>
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','e2')"><input type="checkbox" name="e2" value="Trinh_bay"><div class="opt-check square"></div><div class="opt-text">📢 Trình bày sản phẩm hấp dẫn, nêu đúng lợi ích cho từng khách</div></label>
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','e2')"><input type="checkbox" name="e2" value="Phan_doi_detail"><div class="opt-check square"></div><div class="opt-text">🛡️ Kỹ thuật xử lý phản đối (giá, so sánh với đối thủ, do dự)</div></label>
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','e2')"><input type="checkbox" name="e2" value="Chot_don"><div class="opt-check square"></div><div class="opt-text">✅ Kỹ thuật chốt đơn hàng tự nhiên, không gây áp lực</div></label>
+        <label class="opt" onclick="event.preventDefault();selectOpt(this,'check','e2')"><input type="checkbox" name="e2" value="Cham_soc"><div class="opt-check square"></div><div class="opt-text">💛 Chăm sóc sau bán — tạo khách hàng trung thành, bán lại</div></label>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="q-label">E3. Phương pháp học nào bạn thấy HIỆU QUẢ NHẤT với mình? <span class="required">*</span></div>
+      <div class="options-grid grid-2">
+        <label class="opt" onclick="selectOpt(this,'radio','e3')"><input type="radio" name="e3" value="Roleplay"><div class="opt-check"></div><div class="opt-text">🎭 Đóng vai, thực hành tình huống thực tế</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','e3')"><input type="radio" name="e3" value="Nghe"><div class="opt-check"></div><div class="opt-text">👂 Nghe chia sẻ, câu chuyện thực tế từ giảng viên</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','e3')"><input type="radio" name="e3" value="Case"><div class="opt-check"></div><div class="opt-text">📚 Phân tích tình huống, case study</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','e3')"><input type="radio" name="e3" value="Nhom"><div class="opt-check"></div><div class="opt-text">👥 Thảo luận nhóm, học từ kinh nghiệm đồng nghiệp</div></label>
+      </div>
+    </div>
+
+    <hr class="q-divider">
+
+    <div class="question">
+      <div class="q-label">E4. Sau khóa học, điều bạn MUỐN NHẤT là gì? <span class="required">*</span></div>
+      <div class="options-grid">
+        <label class="opt" onclick="selectOpt(this,'radio','e4')"><input type="radio" name="e4" value="Tu_tin_hon"><div class="opt-check"></div><div class="opt-text">😎 Tự tin hơn khi nói chuyện và giới thiệu sản phẩm với khách</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','e4')"><input type="radio" name="e4" value="Cong_thuc"><div class="opt-check"></div><div class="opt-text">📋 Có được "công thức" / quy trình bán hàng để áp dụng được ngay</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','e4')"><input type="radio" name="e4" value="Vuot_phan_doi"><div class="opt-check"></div><div class="opt-text">🛡️ Biết cách trả lời khi khách từ chối mà không bị "tắt điện"</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','e4')"><input type="radio" name="e4" value="Tang_doanh_thu"><div class="opt-check"></div><div class="opt-text">💰 Thực sự tăng được doanh thu, đạt và vượt chỉ tiêu</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','e4')"><input type="radio" name="e4" value="Thu_hut_KH"><div class="opt-check"></div><div class="opt-text">🧲 Biết cách thu hút và giữ chân khách hàng lâu dài</div></label>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="q-label">E5. Điều bạn LO LẮNG NHẤT về khóa đào tạo này là gì? <span class="required">*</span></div>
+      <div class="options-grid">
+        <label class="opt" onclick="selectOpt(this,'radio','e5')"><input type="radio" name="e5" value="Ly_thuyet"><div class="opt-check"></div><div class="opt-text">😴 Sẽ toàn lý thuyết, khó áp dụng vào thực tế bưu điện</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','e5')"><input type="radio" name="e5" value="Giang_vien"><div class="opt-check"></div><div class="opt-text">🤔 Giảng viên không hiểu đặc thù của ngành bưu điện</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','e5')"><input type="radio" name="e5" value="Khong_thay_doi"><div class="opt-check"></div><div class="opt-text">😟 Học xong rồi vẫn không thay đổi được gì trong công việc thực tế</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','e5')"><input type="radio" name="e5" value="Mat_thoi_gian"><div class="opt-check"></div><div class="opt-text">⏰ Mất thời gian trong khi vẫn còn nhiều công việc nghiệp vụ</div></label>
+        <label class="opt" onclick="selectOpt(this,'radio','e5')"><input type="radio" name="e5" value="Khong_lo"><div class="opt-check"></div><div class="opt-text">✅ Không lo lắng gì, tôi rất kỳ vọng và muốn học</div></label>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="q-label">E6. Chia sẻ thêm (không bắt buộc)</div>
+      <div class="q-hint">Tình huống khó nhất bạn từng gặp khi bán hàng, hoặc điều bạn muốn giảng viên biết về thực tế công việc của bạn</div>
+      <textarea class="text-input" name="e6" rows="3" placeholder="Ví dụ: 'Khách hay so sánh với Viettel Post về giá, tôi không biết phải nói gì...'"></textarea>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-back" onclick="prevStep(5)">← Quay lại</button>
+      <button class="btn btn-submit" onclick="submitForm()">🎉 Hoàn thành khảo sát</button>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="section-card active success-screen" id="section-success" style="display:none; border-top-color: var(--success);">
+    <div class="success-icon">✅</div>
+    <h2>Cảm ơn bạn đã hoàn thành khảo sát!</h2>
+    <p>Thông tin của bạn sẽ giúp chúng tôi thiết kế chương trình đào tạo phù hợp nhất với thực tế của Bưu điện Phú Thọ.<br><br>
+    <strong>Bạu điện Phú Thọ</strong> và <strong>đơn vị đào tạo</strong> sẽ liên hệ với bạn về lịch học trong thời gian sớm nhất.</p>
+    <div style="margin-top: 32px; padding: 20px; background: var(--gold-light); border-radius: 12px; border: 1px solid #F5A62344;">
+      <p style="color: #7A5000; font-size: 14px; font-weight: 600;">💡 Trong thời gian chờ đợi, bạn có thể thử ngay:</p>
+      <p style="color: #7A5000; font-size: 13px; margin-top: 8px; line-height: 1.6;">Khi gặp khách hàng tiếp theo, thay vì chờ họ hỏi — hãy thử mở đầu bằng: <em>"Anh/chị ơi, ngoài dịch vụ [X] này, bên em cũng có dịch vụ [Y] mà nhiều khách hàng ở đây đang dùng lắm..."</em></p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+let currentStep = 1;
+const totalSteps = 5;
+
+const sectionTitles = {
+  1: 'Phần A / 5 — Chân dung học viên',
+  2: 'Phần B / 5 — Thực trạng công việc',
+  3: 'Phần C / 5 — Tư duy & Thái độ',
+  4: 'Phần D / 5 — Kỹ năng thực tế',
+  5: 'Phần E / 5 — Kỳ vọng đào tạo'
+};
+
+// Build skills table
+const skills = [
+  'Tạo ấn tượng & mở đầu câu chuyện với khách',
+  'Đặt câu hỏi để hiểu nhu cầu khách hàng',
+  'Trình bày / giới thiệu sản phẩm hấp dẫn',
+  'Xử lý phản đối, vượt qua lời từ chối',
+  'Chốt đơn hàng, đưa khách đến quyết định mua',
+  'Lập kế hoạch tìm kiếm khách hàng',
+  'Chăm sóc sau bán & xây dựng mối quan hệ lâu dài',
+];
+const tbody = document.getElementById('skills-table');
+skills.forEach((skill, i) => {
+  const row = document.createElement('tr');
+  row.style.cssText = 'background: var(--bg); border-radius: 10px;';
+  let cells = `<td style="padding:12px 8px; font-size:13px; line-height:1.4;">${skill}</td>`;
+  for (let v = 1; v <= 5; v++) {
+    cells += `<td style="text-align:center; padding:8px 4px;">
+      <label style="cursor:pointer; display:flex; align-items:center; justify-content:center;">
+        <input type="radio" name="d2_${i}" value="${v}" style="display:none;" onchange="highlightRow(this,'d2_${i}')">
+        <div class="scale-table-opt" data-name="d2_${i}" data-val="${v}" onclick="pickTableOpt(this)" style="
+          width:36px; height:36px; border-radius:8px; border:2px solid var(--border);
+          display:flex; align-items:center; justify-content:center;
+          font-size:13px; font-weight:700; color:var(--soft);
+          cursor:pointer; transition:all 0.2s; background:var(--white);
+        ">${v}</div>
+      </label>
+    </td>`;
+  }
+  row.innerHTML = cells;
+  tbody.appendChild(row);
+});
+
+// Build scale for C3
+const scaleWrap = document.getElementById('scale-c3');
+for (let i = 1; i <= 10; i++) {
+  const btn = document.createElement('button');
+  btn.className = 'scale-btn';
+  btn.textContent = i;
+  btn.dataset.name = 'c3';
+  btn.dataset.val = i;
+  btn.onclick = () => {
+    document.querySelectorAll('.scale-btn[data-name="c3"]').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+  };
+  scaleWrap.appendChild(btn);
+}
+
+function selectOpt(el, type, name) {
+  const inp = el.querySelector('input');
+  if (type === 'radio') {
+    // Bỏ chọn tất cả option cùng nhóm
+    document.querySelectorAll(`.opt input[name="${name}"]`).forEach(i => {
+      i.closest('.opt').classList.remove('selected');
+      i.checked = false;
+    });
+    // Chọn option hiện tại
+    el.classList.add('selected');
+    if (inp) inp.checked = true;
+  } else {
+    // Checkbox: toggle (event.preventDefault() đã ngăn browser tự toggle)
+    const isSelected = el.classList.contains('selected');
+    el.classList.toggle('selected');
+    if (inp) inp.checked = !isSelected;
+  }
+}
+
+function pickTableOpt(el) {
+  const name = el.dataset.name;
+  document.querySelectorAll(`.scale-table-opt[data-name="${name}"]`).forEach(o => {
+    o.style.background = 'var(--white)';
+    o.style.borderColor = 'var(--border)';
+    o.style.color = 'var(--soft)';
+  });
+  el.style.background = 'var(--red)';
+  el.style.borderColor = 'var(--red)';
+  el.style.color = '#fff';
+}
+
+function updateProgress(step) {
+  const pct = Math.round((step / totalSteps) * 100);
+  document.getElementById('prog-bar').style.width = pct + '%';
+  document.getElementById('prog-label').textContent = sectionTitles[step] || '';
+  document.getElementById('prog-pct').textContent = pct + '%';
+
+  for (let i = 1; i <= totalSteps; i++) {
+    const dot = document.getElementById('step-' + i);
+    dot.classList.remove('active', 'done');
+    if (i < step) dot.classList.add('done');
+    else if (i === step) dot.classList.add('active');
+    if (i < totalSteps) {
+      const line = document.getElementById('line-' + i);
+      line.classList.toggle('done', i < step);
+    }
+  }
+}
+
+function nextStep(from) {
+  if (from < totalSteps) {
+    document.getElementById('section-' + from).classList.remove('active');
+    document.getElementById('section-' + (from + 1)).classList.add('active');
+    currentStep = from + 1;
+    updateProgress(currentStep);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function prevStep(from) {
+  if (from > 1) {
+    document.getElementById('section-' + from).classList.remove('active');
+    document.getElementById('section-' + (from - 1)).classList.add('active');
+    currentStep = from - 1;
+    updateProgress(currentStep);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function goToStep(step) {
+  if (step <= currentStep) {
+    document.getElementById('section-' + currentStep).classList.remove('active');
+    document.getElementById('section-' + step).classList.add('active');
+    currentStep = step;
+    updateProgress(currentStep);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+// =====================================================
+//  BƯỚC QUAN TRỌNG: Dán URL Apps Script của bạn vào đây
+//  Xem hướng dẫn tại: Extensions > Apps Script > Deploy
+// =====================================================
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzBmxgsrupkqOPPM8VzLbZyuB_OZbyeILikpexy0Nh0r3OZ1QcoJmuaawBlb8rii8ru/exec';
+// =====================================================
+
+function collectAllAnswers() {
+  const data = {};
+  data['Thời gian'] = new Date().toLocaleString('vi-VN');
+
+  // Radio buttons
+  ['a1','a2','a3','a5','a6','b1','b3','b4','b5','b6',
+   'c1','c2','c4','c6','d1','d3','d5','e1','e3','e4','e5'].forEach(name => {
+    const sel = document.querySelector(`input[name="${name}"]:checked`);
+    data[name.toUpperCase()] = sel ? sel.value : '';
+  });
+
+  // Checkboxes (multi-select)
+  ['a4','b2','c5','d4','e2'].forEach(name => {
+    const checked = [...document.querySelectorAll(`input[name="${name}"]:checked`)]
+      .map(i => i.value).join(', ');
+    data[name.toUpperCase()] = checked;
+  });
+
+  // Scale C3
+  const c3sel = document.querySelector('.scale-btn.selected[data-name="c3"]');
+  data['C3'] = c3sel ? c3sel.dataset.val : '';
+
+  // Skills table D2
+  skills.forEach((skill, i) => {
+    const sel = document.querySelector(`.scale-table-opt[data-name="d2_${i}"][style*="var(--red)"]`);
+    data[`D2_KN${i+1}`] = sel ? sel.dataset.val : '';
+  });
+
+  // Textarea E6
+  const e6 = document.querySelector('textarea[name="e6"]');
+  data['E6_GhiChu'] = e6 ? e6.value : '';
+
+  return data;
+}
+
+async function submitForm() {
+  const data = collectAllAnswers();
+  const btn = document.querySelector('.btn-submit');
+  const originalText = btn.innerHTML;
+
+  const urlConfigured = APPS_SCRIPT_URL && APPS_SCRIPT_URL !== 'https://script.google.com/macros/s/AKfycbzBmxgsrupkqOPPM8VzLbZyuB_OZbyeILikpexy0Nh0r3OZ1QcoJmuaawBlb8rii8ru/exec';
+
+  if (urlConfigured) {
+    btn.innerHTML = '⏳ Đang gửi dữ liệu...';
+    btn.disabled = true;
+
+    let success = false;
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 10000);
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+        signal: controller.signal
+      });
+      clearTimeout(timeout);
+      success = true;
+    } catch(err) {
+      // no-cors không trả về lỗi thực sự — thử lần 2
+      try {
+        await fetch(APPS_SCRIPT_URL, {
+          method: 'POST', mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify(data)
+        });
+        success = true;
+      } catch(e) {
+        console.warn('Gửi thất bại:', e);
+      }
+    }
+
+    if (!success) {
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+      alert('⚠️ Không gửi được dữ liệu.\nVui lòng kiểm tra lại URL Apps Script trong file HTML.\nNếu vẫn lỗi, hãy liên hệ người quản trị.');
+      return;
+    }
+  } else {
+    // Chế độ demo — log ra console
+    console.table(data);
+    console.warn('⚠️ Chưa cấu hình APPS_SCRIPT_URL. Dữ liệu chỉ hiển thị trong Console.');
+  }
+
+  // Ẩn tất cả các phần
+  for (let i = 1; i <= totalSteps; i++) {
+    const sec = document.getElementById('section-' + i);
+    if (sec) sec.classList.remove('active');
+  }
+
+  const suc = document.getElementById('section-success');
+  suc.style.display = 'block';
+  suc.classList.add('active');
+
+  // Cập nhật thanh tiến độ 100%
+  document.getElementById('prog-bar').style.width = '100%';
+  document.getElementById('prog-label').textContent = 'Hoàn thành — Cảm ơn bạn!';
+  document.getElementById('prog-pct').textContent = '100%';
+  for (let i = 1; i <= totalSteps; i++) {
+    const dot = document.getElementById('step-' + i);
+    dot.classList.remove('active');
+    dot.classList.add('done');
+    if (i < totalSteps) document.getElementById('line-' + i).classList.add('done');
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+updateProgress(1);
+</script>
+</body>
+</html>
